@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>About | Hi-Tech MCS STEAM Lab</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+    --parrot-green: #03Ac13;
+    --vibrant-green: #B0FC38;
+    --white: #ffffff;
+    --dark-green: #028a0f;
+    --light-green: #d4fc8d;
+    --neon-green: #9efc03;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+}
+
+body {
+    background: linear-gradient(rgba(3, 172, 19, 0.85), rgba(140, 252, 56, 0.8)), 
+                url('https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #ffffff;
+    overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* ===== STARTUP ANIMATION ===== */
+.startup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, var(--dark-green), #014a0a);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    animation: fadeOut 0.8s ease-in-out 4s forwards;
+}
+
+.cm-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+    animation: slideUpFade 1s ease-out 0.5s both;
+}
+
+.cm-image-container {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.cm-image {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 6px solid var(--vibrant-green);
+    box-shadow: 0 0 50px rgba(176, 252, 56, 0.6),
+                0 0 100px rgba(176, 252, 56, 0.3),
+                inset 0 0 30px rgba(255, 255, 255, 0.2);
+    animation: gentleGlow 3s infinite alternate;
+    filter: brightness(1.05) contrast(1.1);
+}
+
+@keyframes gentleGlow {
+    0% {
+        box-shadow: 0 0 40px rgba(176, 252, 56, 0.6),
+                    0 0 80px rgba(176, 252, 56, 0.3),
+                    inset 0 0 20px rgba(255, 255, 255, 0.2);
+        transform: scale(1);
+    }
+    100% {
+        box-shadow: 0 0 60px rgba(176, 252, 56, 0.8),
+                    0 0 120px rgba(176, 252, 56, 0.4),
+                    inset 0 0 30px rgba(255, 255, 255, 0.3);
+        transform: scale(1.03);
+    }
+}
+
+.cm-badge {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: linear-gradient(45deg, #ff0000, #ff6b6b);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transform: rotate(5deg);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.cm-title {
+    color: var(--vibrant-green);
+    font-size: 2.2rem;
+    text-align: center;
+    margin-top: 20px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5),
+                 0 0 20px rgba(176, 252, 56, 0.3);
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.cm-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: var(--vibrant-green);
+    border-radius: 2px;
+    box-shadow: 0 0 10px var(--vibrant-green);
+}
+
+.cm-subtitle {
+    color: var(--light-green);
+    font-size: 1.3rem;
+    text-align: center;
+    margin-top: 10px;
+    font-style: italic;
+    opacity: 0.9;
+}
+
+.govt-badge {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
+    padding: 40px 60px;
+    border-radius: 25px;
+    margin-top: 20px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.4),
+                inset 0 0 30px rgba(255, 255, 255, 0.5);
+    transform: scale(0) rotate(-180deg);
+    animation: badgeLaunch 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1s forwards;
+    border: 6px solid var(--vibrant-green);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.govt-badge::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+    transform: rotate(45deg);
+    animation: shine 3s infinite linear;
+}
+
+@keyframes shine {
+    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+@keyframes badgeLaunch {
+    0% { transform: scale(0) rotate(-180deg); opacity: 0; }
+    70% { transform: scale(1.15) rotate(15deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+
+.govt-badge h1 {
+    background: linear-gradient(90deg, var(--parrot-green), var(--dark-green));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 4rem;
+    text-align: center;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 1;
+}
+
+.govt-badge h2 {
+    color: var(--dark-green);
+    font-size: 1.8rem;
+    text-align: center;
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
+}
+
+.loading-container {
+    width: 500px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 30px;
+    padding: 8px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3),
+                inset 0 0 15px rgba(255, 255, 255, 0.2);
+    margin-top: 40px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(176, 252, 56, 0.3);
+}
+
+.loading-bar {
+    height: 25px;
+    background: linear-gradient(90deg, var(--vibrant-green), var(--neon-green), var(--vibrant-green));
+    background-size: 200% 100%;
+    border-radius: 25px;
+    width: 0%;
+    animation: loadingComplete 3s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+    position: relative;
+    overflow: hidden;
+}
+
+@keyframes loadingComplete {
+    0% { width: 0%; }
+    100% { width: 100%; }
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; visibility: hidden; }
+}
+
+@keyframes slideUpFade {
+    0% { opacity: 0; transform: translateY(50px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== OPTIMIZED PARTICLE BACKGROUND ===== */
+#particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* ===== TOP BAR ===== */
+.govt-topbar {
+    background: linear-gradient(90deg, rgba(2, 138, 15, 0.95), rgba(3, 172, 19, 0.95));
+    color: var(--white);
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+    border-bottom: 4px solid var(--vibrant-green);
+    animation: slideDown 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) 4.2s both;
+    opacity: 0;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+    position: relative;
+    z-index: 1000;
+}
+
+@keyframes slideDown {
+    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(-100%); }
+}
+
+.govt-seal {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.seal-icon {
+    width: 45px;
+    height: 45px;
+    background: var(--vibrant-green);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--parrot-green);
+    font-size: 22px;
+    animation: pulseGlow 2s infinite alternate;
+}
+
+@keyframes pulseGlow {
+    0% { 
+        transform: scale(1);
+        box-shadow: 0 0 10px var(--vibrant-green);
+    }
+    100% { 
+        transform: scale(1.1);
+        box-shadow: 0 0 25px var(--vibrant-green);
+    }
+}
+
+/* ===== HEADER ===== */
+.govt-header {
+    background: rgba(255, 255, 255, 0.97);
+    padding: 25px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    border-bottom: 4px solid var(--vibrant-green);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    animation: headerReveal 1s ease-out 4.5s both;
+    opacity: 0;
+    backdrop-filter: blur(15px);
+}
+
+@keyframes headerReveal {
+    to { opacity: 1; }
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.govt-logo {
+    font-size: 34px;
+    font-weight: 800;
+    background: linear-gradient(90deg, var(--parrot-green), var(--dark-green));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    position: relative;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.govt-logo::after {
+    content: "";
+    position: absolute;
+    bottom: -12px;
+    left: 0;
+    width: 0;
+    height: 5px;
+    background: var(--vibrant-green);
+    border-radius: 3px;
+    animation: drawLine 1.2s ease-out 5s forwards;
+    box-shadow: 0 0 15px var(--vibrant-green);
+}
+
+@keyframes drawLine {
+    to { width: 100%; }
+}
+
+.govt-nav {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-item {
+    text-decoration: none;
+    color: var(--dark-green);
+    font-weight: 700;
+    padding: 14px 28px;
+    border-radius: 50px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s;
+    background: rgba(176, 252, 56, 0.25);
+    border: 2px solid transparent;
+    font-size: 1.05rem;
+}
+
+.nav-item i {
+    margin-right: 10px;
+    color: var(--parrot-green);
+}
+
+.nav-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent);
+    transition: left 0.8s;
+}
+
+.nav-item:hover::before {
+    left: 100%;
+}
+
+.nav-item:hover {
+    background: linear-gradient(135deg, var(--parrot-green), var(--dark-green));
+    color: var(--white);
+    transform: translateY(-8px) scale(1.1);
+    border-color: var(--vibrant-green);
+    box-shadow: 0 15px 35px rgba(3, 172, 19, 0.4);
+}
+
+/* ===== ABOUT PAGE CONTENT ===== */
+.about-section {
+    padding: 100px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    animation: fadeIn 1s ease-out 5s both;
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+.about-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.about-header h1 {
+    font-size: 3.5rem;
+    color: var(--vibrant-green);
+    margin-bottom: 20px;
+    text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.about-header p {
+    font-size: 1.3rem;
+    color: var(--light-green);
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* CM Vision Section */
+.cm-vision {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 30px;
+    padding: 50px;
+    margin-bottom: 60px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    border: 4px solid var(--vibrant-green);
+    position: relative;
+    overflow: hidden;
+}
+
+.cm-vision::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #ff0000, #ff6b6b);
+}
+
+.cm-vision-content {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.cm-vision-image {
+    flex-shrink: 0;
+}
+
+.cm-vision-image img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid var(--vibrant-green);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.cm-vision-text {
+    flex: 1;
+}
+
+.cm-vision-text h2 {
+    color: var(--dark-green);
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.cm-vision-text h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--vibrant-green), var(--neon-green));
+    border-radius: 2px;
+}
+
+.cm-vision-text p {
+    color: #333;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 15px;
+}
+
+/* Vision Cards */
+.vision-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.vision-card {
+    background: linear-gradient(135deg, rgba(3, 172, 19, 0.1), rgba(176, 252, 56, 0.1));
+    padding: 30px;
+    border-radius: 20px;
+    border-left: 5px solid var(--vibrant-green);
+    transition: transform 0.3s ease;
+}
+
+.vision-card:hover {
+    transform: translateY(-10px);
+}
+
+.vision-card i {
+    font-size: 2.5rem;
+    color: var(--parrot-green);
+    margin-bottom: 20px;
+}
+
+.vision-card h3 {
+    color: var(--dark-green);
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.vision-card p {
+    color: #444;
+    line-height: 1.6;
+}
+
+/* STEAM Lab Info */
+.steam-lab-info {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 30px;
+    padding: 50px;
+    margin-bottom: 60px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+}
+
+.steam-lab-info h2 {
+    color: var(--dark-green);
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-align: center;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.steam-lab-info h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--vibrant-green), var(--neon-green));
+    border-radius: 2px;
+}
+
+.steam-lab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.steam-lab-item {
+    text-align: center;
+    padding: 30px;
+    background: linear-gradient(135deg, rgba(3, 172, 19, 0.05), rgba(176, 252, 56, 0.05));
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.steam-lab-item:hover {
+    border-color: var(--vibrant-green);
+    transform: scale(1.05);
+}
+
+.steam-lab-item i {
+    font-size: 3rem;
+    color: var(--parrot-green);
+    margin-bottom: 20px;
+}
+
+.steam-lab-item h3 {
+    color: var(--dark-green);
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.steam-lab-item p {
+    color: #444;
+    line-height: 1.6;
+}
+
+/* Website Info */
+.website-info {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 30px;
+    padding: 50px;
+    margin-bottom: 60px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+}
+
+.website-info h2 {
+    color: var(--dark-green);
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-align: center;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.website-info h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--vibrant-green), var(--neon-green));
+    border-radius: 2px;
+}
+
+.website-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.feature {
+    background: rgba(176, 252, 56, 0.1);
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.feature:hover {
+    background: rgba(176, 252, 56, 0.2);
+    transform: translateY(-10px);
+}
+
+.feature i {
+    font-size: 2.5rem;
+    color: var(--parrot-green);
+    margin-bottom: 20px;
+}
+
+.feature h3 {
+    color: var(--dark-green);
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.feature p {
+    color: #444;
+    line-height: 1.6;
+}
+
+/* Mission Statement */
+.mission-statement {
+    background: linear-gradient(135deg, var(--parrot-green), var(--dark-green));
+    border-radius: 30px;
+    padding: 60px;
+    text-align: center;
+    color: white;
+    margin: 60px 0;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
+
+.mission-statement h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: var(--vibrant-green);
+}
+
+.mission-statement p {
+    font-size: 1.3rem;
+    line-height: 1.8;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* ===== FOOTER ===== */
+.govt-footer {
+    background: linear-gradient(90deg, rgba(2, 138, 15, 0.95), rgba(3, 172, 19, 0.95));
+    color: var(--white);
+    padding: 70px 40px 40px;
+    text-align: center;
+    margin-top: 120px;
+    position: relative;
+    overflow: hidden;
+    animation: footerRise 1s ease-out 8.5s both;
+    opacity: 0;
+    border-top: 6px solid var(--vibrant-green);
+}
+
+@keyframes footerRise {
+    to { opacity: 1; }
+}
+
+.footer-wave {
+    position: absolute;
+    top: -60px;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z' fill='%23B0FC38'%3E%3C/path%3E%3C/svg%3E");
+    background-size: 1200px 100%;
+    animation: waveMove 30s linear infinite;
+}
+
+@keyframes waveMove {
+    0% { background-position-x: 0; }
+    100% { background-position-x: 2400px; }
+}
+
+.footer-content {
+    position: relative;
+    z-index: 1;
+}
+
+.footer-logo {
+    font-size: 3rem;
+    font-weight: 900;
+    margin-bottom: 30px;
+    color: var(--vibrant-green);
+    text-shadow: 0 0 30px rgba(176, 252, 56, 0.7);
+    letter-spacing: 1px;
+}
+
+.contact-info {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin: 40px 0;
+    flex-wrap: wrap;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 1.2rem;
+    background: rgba(255,255,255,0.1);
+    padding: 15px 25px;
+    border-radius: 50px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(176, 252, 56, 0.3);
+    transition: all 0.4s;
+}
+
+.contact-item:hover {
+    background: rgba(255,255,255,0.2);
+    transform: translateY(-5px);
+    border-color: var(--vibrant-green);
+}
+
+.contact-item i {
+    color: var(--vibrant-green);
+    font-size: 1.5rem;
+}
+
+.social-icons {
+    margin: 50px 0 40px;
+}
+
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%;
+    color: var(--vibrant-green);
+    font-size: 1.8rem;
+    margin: 0 20px;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 3px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.social-icon:hover {
+    background: var(--vibrant-green);
+    color: var(--parrot-green);
+    transform: translateY(-15px) rotate(360deg) scale(1.2);
+    border-color: var(--white);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+}
+
+.copyright {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 2px solid rgba(255,255,255,0.2);
+    line-height: 1.8;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 1200px) {
+    .about-section {
+        padding: 80px 30px;
+    }
+}
+
+@media (max-width: 992px) {
+    .cm-vision-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .cm-vision-text h2::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .govt-nav {
+        gap: 20px;
+    }
+    
+    .nav-item {
+        padding: 12px 24px;
+        font-size: 1rem;
+    }
+    
+    .cm-image {
+        width: 180px;
+        height: 180px;
+    }
+    
+    .cm-title {
+        font-size: 1.8rem;
+    }
+    
+    .govt-badge h1 {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .govt-header {
+        flex-direction: column;
+        gap: 30px;
+        padding: 20px;
+    }
+    
+    .govt-nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+    
+    .about-section {
+        padding: 60px 20px;
+    }
+    
+    .cm-vision, .steam-lab-info, .website-info {
+        padding: 30px;
+    }
+    
+    .mission-statement {
+        padding: 40px 20px;
+    }
+    
+    .govt-topbar, .govt-footer {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    
+    .govt-badge {
+        padding: 30px 40px;
+    }
+    
+    .loading-container {
+        width: 350px;
+    }
+    
+    .cm-image {
+        width: 160px;
+        height: 160px;
+    }
+    
+    .cm-title {
+        font-size: 1.6rem;
+    }
+    
+    body {
+        background-attachment: scroll;
+    }
+}
+
+@media (max-width: 480px) {
+    .vision-cards, .steam-lab-grid, .website-features {
+        grid-template-columns: 1fr;
+    }
+    
+    .loading-container {
+        width: 280px;
+    }
+    
+    .contact-info {
+        gap: 20px;
+    }
+    
+    .contact-item {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
+        gap: 10px;
+    }
+    
+    .cm-image {
+        width: 140px;
+        height: 140px;
+    }
+    
+    .cm-title {
+        font-size: 1.4rem;
+    }
+    
+    .cm-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .about-header h1 {
+        font-size: 2.5rem;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- Startup Animation with CM Maryam Nawaz Image -->
+<div class="startup-overlay">
+    <div class="cm-section">
+        <div class="cm-image-container">
+            
+                
+        
+        </div>
+        <img src="cm.jpg.png" 
+                     alt="CM Maryam Nawaz Sharif"width="300" height="400">
+        <div class="cm-title">Hon. Chief Minister Maryam Nawaz Sharif</div>
+        <div class="cm-subtitle">Visionary Leader of Punjab's Digital Transformation</div>
+    </div>
+    
+    <div class="govt-badge">
+        <h1><i class="fas fa-atom"></i> Hi-Tech MCS</h1>
+        <h2>National STEAM Innovation Portal</h2>
+        <div class="loading-container" style="margin-top: 40px;">
+            <div class="loading-bar"></div>
+        </div>
+    </div>
+</div>
+<!-- Particle Canvas -->
+<canvas id="particle-canvas"></canvas>
+
+<!-- Header -->
+<header class="govt-header">
+    <div class="logo-container">
+        <div class="logo-icon">
+            <i class="fas fa-atom fa-3x" style="color: var(--vibrant-green);"></i>
+        </div>
+        <div class="govt-logo">Hi-Tech MCS STEAM Lab</div>
+    </div>
+    
+    <nav class="govt-nav">
+        <a href="deepseek.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+        <a href="about.html" class="nav-item" style="background: linear-gradient(135deg, var(--parrot-green), var(--dark-green)); color: white;"><i class="fas fa-circle-info"></i> About</a>
+        <a href="lab1.html" class="nav-item"><i class="fas fa-flask"></i> Labs</a>
+        <a href="project1.html" class="nav-item"><i class="fas fa-diagram-project"></i> Projects</a>
+        <a href="contactus.html" class="nav-item"><i class="fas fa-user-shield"></i> Contact us</a>
+    </nav>
+</header>
+
+<!-- About Page Content -->
+<section class="about-section">
+    <div class="about-header">
+        <h1>About Hi-Tech MCS STEAM Lab</h1>
+        <p>Pioneering Pakistan's Digital Future through Science, Technology, Engineering, Arts, and Mathematics</p>
+    </div>
+
+    <!-- CM Maryam Nawaz Vision Section -->
+    <div class="cm-vision">
+        <div class="cm-vision-content">
+            <div class="cm-vision-image">
+                <img src="cm.jpg.png" 
+                     alt="CM Maryam Nawaz Sharif">
+            </div>
+            <div class="cm-vision-text">
+                <h2>Vision of CM Maryam Nawaz Sharif</h2>
+                <p>Under the dynamic leadership of <strong>Chief Minister Maryam Nawaz Sharif</strong>, Punjab has embarked on a transformative journey to revolutionize education and innovation through the STEAM (Science, Technology, Engineering, Arts, and Mathematics) initiative.</p>
+                <p>As Pakistan's first female Chief Minister, CM Maryam Nawaz has championed digital transformation as a cornerstone of her governance. Her vision is to establish Punjab as a hub of technological innovation, empowering the youth with 21st-century skills and positioning Pakistan on the global technology map.</p>
+                <p>The Hi-Tech MCS STEAM Lab initiative is a direct manifestation of her commitment to creating an ecosystem where creativity meets technology, fostering innovation that addresses Pakistan's unique challenges while competing globally.</p>
+            </div>
+        </div>
+        
+        <div class="vision-cards">
+            <div class="vision-card">
+                <i class="fas fa-graduation-cap"></i>
+                <h3>Educational Revolution</h3>
+                <p>Transforming traditional education systems to incorporate hands-on STEAM learning, critical thinking, and problem-solving skills from primary to university levels.</p>
+            </div>
+            
+            <div class="vision-card">
+                <i class="fas fa-industry"></i>
+                <h3>Industry 4.0 Alignment</h3>
+                <p>Bridging the gap between academia and industry by preparing students for careers in emerging technologies like AI, IoT, Robotics, and Renewable Energy.</p>
+            </div>
+            
+            <div class="vision-card">
+                <i class="fas fa-users"></i>
+                <h3>Youth Empowerment</h3>
+                <p>Creating opportunities for Pakistan's youth to become innovators, entrepreneurs, and leaders in the global digital economy.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEAM Lab Information -->
+    <div class="steam-lab-info">
+        <h2>The Hi-Tech MCS STEAM Lab Initiative</h2>
+        <p>The Hi-Tech MCS (Modern Computer Science) STEAM Lab is a flagship program under the Punjab government's Digital Transformation Agenda. Established in 2024, this initiative represents a paradigm shift in how Pakistan approaches technology education and innovation.</p>
+        
+        <div class="steam-lab-grid">
+            <div class="steam-lab-item">
+                <i class="fas fa-microscope"></i>
+                <h3>State-of-the-Art Facilities</h3>
+                <p>Equipped with cutting-edge laboratories featuring 3D printers, laser cutters, robotics kits, AI workstations, and virtual reality systems across 100+ centers in Punjab.</p>
+            </div>
+            
+            <div class="steam-lab-item">
+                <i class="fas fa-book-open"></i>
+                <h3>Curriculum Innovation</h3>
+                <p>Developing Pakistan's first standardized STEAM curriculum that integrates coding, design thinking, electronics, and creative arts from grade 6 onwards.</p>
+            </div>
+            
+            <div class="steam-lab-item">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <h3>Teacher Training</h3>
+                <p>Comprehensive training programs for 5,000+ educators annually, transforming them into STEAM ambassadors who can inspire the next generation.</p>
+            </div>
+            
+            <div class="steam-lab-item">
+                <i class="fas fa-handshake"></i>
+                <h3>Industry Partnerships</h3>
+                <p>Collaboration with global tech giants (Google, Microsoft, IBM) and local industry leaders to ensure curriculum relevance and job placement opportunities.</p>
+            </div>
+            
+            <div class="steam-lab-item">
+                <i class="fas fa-trophy"></i>
+                <h3>Competitions & Exhibitions</h3>
+                <p>Annual STEAM fairs, hackathons, and innovation challenges with national and international participation, offering prize money up to PKR 5 million.</p>
+            </div>
+            
+            <div class="steam-lab-item">
+                <i class="fas fa-globe-asia"></i>
+                <h3>Global Connectivity</h3>
+                <p>Digital collaboration platforms connecting Pakistani students with international peers for joint projects and knowledge exchange.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- About This Website -->
+    <div class="website-info">
+        <h2>About This Website</h2>
+        <p>The Hi-Tech MCS National STEAM Portal serves as the digital backbone of Pakistan's largest STEAM education initiative. This platform is designed to be more than just a website - it's a comprehensive ecosystem for innovation, collaboration, and growth.</p>
+        
+        <div class="website-features">
+            <div class="feature">
+                <i class="fas fa-project-diagram"></i>
+                <h3>Project Showcase</h3>
+                <p>A dynamic gallery showcasing innovative projects from students across Punjab, providing inspiration and setting benchmarks for excellence.</p>
+            </div>
+            
+            <div class="feature">
+                <i class="fas fa-database"></i>
+                <h3>Resource Library</h3>
+                <p>Comprehensive repository of learning materials, tutorials, research papers, and project guides covering all aspects of STEAM education.</p>
+            </div>
+            
+            <div class="feature">
+                <i class="fas fa-users-cog"></i>
+                <h3>Collaboration Platform</h3>
+                <p>Tools for students, teachers, and mentors to collaborate on projects, share ideas, and form interdisciplinary teams across institutions.</p>
+            </div>
+            
+            <div class="feature">
+                <i class="fas fa-calendar-check"></i>
+                <h3>Event Management</h3>
+                <p>Centralized system for managing workshops, competitions, and exhibitions with online registration and participation tracking.</p>
+            </div>
+            
+            <div class="feature">
+                <i class="fas fa-chart-line"></i>
+                <h3>Progress Tracking</h3>
+                <p>Individual and institutional dashboards for monitoring learning progress, project development, and skill acquisition metrics.</p>
+            </div>
+            
+            <div class="feature">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Secure Administration</h3>
+                <p>Advanced admin panel for managing user accounts, content moderation, and monitoring platform activity with robust security protocols.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mission Statement -->
+    <div class="mission-statement">
+        <h2>Our Mission</h2>
+        <p>"To transform Pakistan into a knowledge-based economy by democratizing access to quality STEAM education, fostering innovation culture, and empowering every child in Punjab to become a creator, innovator, and problem-solver who can contribute to national development and compete globally."</p>
+        <p style="margin-top: 20px; font-size: 1.2rem; color: var(--light-green);">
+            <i class="fas fa-quote-left"></i> 
+            We don't just teach technology - we create technologists. We don't just explain science - we cultivate scientists. We don't just talk about innovation - we build innovators.
+            <i class="fas fa-quote-right"></i>
+        </p>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="govt-footer">
+    <div class="footer-wave"></div>
+    <div class="footer-content">
+        <div class="footer-logo">
+            <i class="fas fa-atom"></i> Hi-Tech MCS
+        </div>
+        <p style="font-size: 1.4rem; margin-bottom: 25px; font-weight: 300;">National STEAM Innovation Portal</p>
+        <p style="font-size: 1.2rem; margin-bottom: 40px; max-width: 800px; margin-left: auto; margin-right: auto;">
+            Transforming Pakistan's technological landscape through cutting-edge STEAM education and innovation
+        </p>
+        
+        <div class="contact-info">
+            <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <span>innovation@hitechmcs.gov.pk</span>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-phone"></i>
+                <span>+92-51-7654321</span>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>STEAM Innovation Complex, Islamabad</span>
+            </div>
+        </div>
+        
+        <div class="social-icons">
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+        </div>
+        
+        <div class="copyright">
+            © 2024 Hi-Tech MCS National STEAM Portal. All Rights Reserved.<br>
+            A Government of Pakistan Initiative | Ministry of Innovation & Technology
+        </div>
+    </div>
+</footer>
+
+<!-- Optimized JavaScript -->
+<script>
+// Optimized Particle Animation
+const canvas = document.getElementById('particle-canvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+// Reduced particle count for better performance
+const particles = [];
+const particleCount = 30;
+
+class Particle {
+    constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 0.5;
+        this.speedY = Math.random() * 0.5 + 0.1;
+        this.color = `rgba(${Math.random() * 100 + 155}, ${Math.random() * 255}, ${Math.random() * 100}, 0.4)`;
+    }
+    
+    update() {
+        this.y -= this.speedY;
+        if (this.y < 0) {
+            this.y = canvas.height;
+            this.x = Math.random() * canvas.width;
+        }
+    }
+    
+    draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+// Initialize particles
+for (let i = 0; i < particleCount; i++) {
+    particles.push(new Particle());
+}
+
+// Use requestAnimationFrame with time-based updates for consistent performance
+let lastTime = 0;
+const fps = 24;
+const frameInterval = 1000 / fps;
+
+function animateParticles(currentTime) {
+    if (currentTime - lastTime > frameInterval) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(particle => {
+            particle.update();
+            particle.draw();
+        });
+        lastTime = currentTime;
+    }
+    requestAnimationFrame(animateParticles);
+}
+
+// Handle window resize with debouncing
+let resizeTimeout;
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }, 250);
+});
+
+// Start animations after startup
+setTimeout(() => {
+    requestAnimationFrame(animateParticles);
+    
+    // Remove startup overlay after animation completes
+    const startupOverlay = document.querySelector('.startup-overlay');
+    setTimeout(() => {
+        if (startupOverlay && startupOverlay.parentNode) {
+            startupOverlay.remove();
+        }
+    }, 800);
+}, 4000);
+
+// Smooth scroll for navigation links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('href');
+        if (targetId === '#' || targetId.startsWith('http')) return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+            e.preventDefault();
+            window.scrollTo({
+                top: targetElement.offsetTop - 100,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// Image preloading for better performance
+window.addEventListener('load', function() {
+    // Preload the CM image
+    const cmImage = new Image();
+    cmImage.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Maryam_Nawaz_Sharif_2022.jpg/800px-Maryam_Nawaz_Sharif_2022.jpg';
+    
+    // Preload background image
+    const bgImage = new Image();
+    bgImage.src = 'https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80';
+});
+</script>
+
+</body>
+</html>
