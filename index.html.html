@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hi-Tech MCS | National STEAM Portal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+    --parrot-green: #03Ac13;
+    --vibrant-green: #B0FC38;
+    --white: #ffffff;
+    --dark-green: #028a0f;
+    --light-green: #d4fc8d;
+    --neon-green: #9efc03;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+}
+
+body {
+    background: linear-gradient(rgba(3, 172, 19, 0.85), rgba(140, 252, 56, 0.8)), 
+    url('https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color: #ffffff;
+    overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* ===== STARTUP ANIMATION ===== */
+.startup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, var(--dark-green), #014a0a);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    animation: fadeOut 0.8s ease-in-out 4s forwards;
+}
+
+.cm-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+    animation: slideUpFade 1s ease-out 0.5s both;
+}
+
+.cm-image-container {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.cm-image {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 6px solid var(--vibrant-green);
+    box-shadow: 0 0 50px rgba(176, 252, 56, 0.6),
+                0 0 100px rgba(176, 252, 56, 0.3),
+                inset 0 0 30px rgba(255, 255, 255, 0.2);
+    animation: gentleGlow 3s infinite alternate;
+    filter: brightness(1.05) contrast(1.1);
+}
+
+@keyframes gentleGlow {
+    0% {
+        box-shadow: 0 0 40px rgba(176, 252, 56, 0.6),
+                    0 0 80px rgba(176, 252, 56, 0.3),
+                    inset 0 0 20px rgba(255, 255, 255, 0.2);
+        transform: scale(1);
+    }
+    100% {
+        box-shadow: 0 0 60px rgba(176, 252, 56, 0.8),
+                    0 0 120px rgba(176, 252, 56, 0.4),
+                    inset 0 0 30px rgba(255, 255, 255, 0.3);
+        transform: scale(1.03);
+    }
+}
+
+.cm-badge {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: linear-gradient(45deg, #ff0000, #ff6b6b);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transform: rotate(5deg);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.cm-title {
+    color: var(--vibrant-green);
+    font-size: 2.2rem;
+    text-align: center;
+    margin-top: 20px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5),
+                 0 0 20px rgba(176, 252, 56, 0.3);
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.cm-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: var(--vibrant-green);
+    border-radius: 2px;
+    box-shadow: 0 0 10px var(--vibrant-green);
+}
+
+.cm-subtitle {
+    color: var(--light-green);
+    font-size: 1.3rem;
+    text-align: center;
+    margin-top: 10px;
+    font-style: italic;
+    opacity: 0.9;
+}
+
+.govt-badge {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
+    padding: 40px 60px;
+    border-radius: 25px;
+    margin-top: 20px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.4),
+                inset 0 0 30px rgba(255, 255, 255, 0.5);
+    transform: scale(0) rotate(-180deg);
+    animation: badgeLaunch 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1s forwards;
+    border: 6px solid var(--vibrant-green);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.govt-badge::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+    transform: rotate(45deg);
+    animation: shine 3s infinite linear;
+}
+
+@keyframes shine {
+    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+@keyframes badgeLaunch {
+    0% { transform: scale(0) rotate(-180deg); opacity: 0; }
+    70% { transform: scale(1.15) rotate(15deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+
+.govt-badge h1 {
+    background: linear-gradient(90deg, var(--parrot-green), var(--dark-green));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 4rem;
+    text-align: center;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 1;
+}
+
+.govt-badge h2 {
+    color: var(--dark-green);
+    font-size: 1.8rem;
+    text-align: center;
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
+}
+
+.loading-container {
+    width: 500px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 30px;
+    padding: 8px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3),
+                inset 0 0 15px rgba(255, 255, 255, 0.2);
+    margin-top: 40px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(176, 252, 56, 0.3);
+}
+
+.loading-bar {
+    height: 25px;
+    background: linear-gradient(90deg, var(--vibrant-green), var(--neon-green), var(--vibrant-green));
+    background-size: 200% 100%;
+    border-radius: 25px;
+    width: 0%;
+    animation: loadingComplete 3s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+    position: relative;
+    overflow: hidden;
+}
+
+@keyframes loadingComplete {
+    0% { width: 0%; }
+    100% { width: 100%; }
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; visibility: hidden; }
+}
+
+@keyframes slideUpFade {
+    0% { opacity: 0; transform: translateY(50px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== OPTIMIZED PARTICLE BACKGROUND ===== */
+#particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* ===== TOP BAR ===== */
+.govt-topbar {
+    background: linear-gradient(90deg, rgba(2, 138, 15, 0.95), rgba(3, 172, 19, 0.95));
+    color: var(--white);
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+    border-bottom: 4px solid var(--vibrant-green);
+    animation: slideDown 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) 4.2s both;
+    opacity: 0;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+    position: relative;
+    z-index: 1000;
+}
+
+@keyframes slideDown {
+    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(-100%); }
+}
+
+.govt-seal {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.seal-icon {
+    width: 45px;
+    height: 45px;
+    background: var(--vibrant-green);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--parrot-green);
+    font-size: 22px;
+    animation: pulseGlow 2s infinite alternate;
+}
+
+@keyframes pulseGlow {
+    0% { 
+        transform: scale(1);
+        box-shadow: 0 0 10px var(--vibrant-green);
+    }
+    100% { 
+        transform: scale(1.1);
+        box-shadow: 0 0 25px var(--vibrant-green);
+    }
+}
+
+/* ===== HEADER ===== */
+.govt-header {
+    background: rgba(255, 255, 255, 0.97);
+    padding: 25px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    border-bottom: 4px solid var(--vibrant-green);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    animation: headerReveal 1s ease-out 4.5s both;
+    opacity: 0;
+    backdrop-filter: blur(15px);
+}
+
+@keyframes headerReveal {
+    to { opacity: 1; }
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.govt-logo {
+    font-size: 34px;
+    font-weight: 800;
+    background: linear-gradient(90deg, var(--parrot-green), var(--dark-green));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    position: relative;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.govt-logo::after {
+    content: "";
+    position: absolute;
+    bottom: -12px;
+    left: 0;
+    width: 0;
+    height: 5px;
+    background: var(--vibrant-green);
+    border-radius: 3px;
+    animation: drawLine 1.2s ease-out 5s forwards;
+    box-shadow: 0 0 15px var(--vibrant-green);
+}
+
+@keyframes drawLine {
+    to { width: 100%; }
+}
+
+.govt-nav {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-item {
+    text-decoration: none;
+    color: var(--dark-green);
+    font-weight: 700;
+    padding: 14px 28px;
+    border-radius: 50px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s;
+    background: rgba(176, 252, 56, 0.25);
+    border: 2px solid transparent;
+    font-size: 1.05rem;
+}
+
+.nav-item i {
+    margin-right: 10px;
+    color: var(--parrot-green);
+}
+
+.nav-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent);
+    transition: left 0.8s;
+}
+
+.nav-item:hover::before {
+    left: 100%;
+}
+
+.nav-item:hover {
+    background: linear-gradient(135deg, var(--parrot-green), var(--dark-green));
+    color: var(--white);
+    transform: translateY(-8px) scale(1.1);
+    border-color: var(--vibrant-green);
+    box-shadow: 0 15px 35px rgba(3, 172, 19, 0.4);
+}
+
+/* ===== HERO SECTION ===== */
+.govt-hero {
+    padding: 160px 40px 100px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    animation: heroGlow 2s ease-out 5s both;
+    opacity: 0;
+}
+
+@keyframes heroGlow {
+    to { opacity: 1; }
+}
+
+.hero-title {
+    font-size: 5rem;
+    color: var(--white);
+    margin-bottom: 30px;
+    text-shadow: 0 0 40px rgba(176, 252, 56, 0.8);
+    animation: titleFloat 8s ease-in-out infinite;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+@keyframes titleFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-15px) rotate(0.5deg); }
+    75% { transform: translateY(10px) rotate(-0.5deg); }
+}
+
+.hero-subtitle {
+    font-size: 2rem;
+    color: var(--light-green);
+    margin-bottom: 50px;
+    animation: fadeUp 1s ease-out 5.5s both;
+    opacity: 0;
+    font-weight: 300;
+    text-shadow: 0 2px 15px rgba(0,0,0,0.3);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+.steam-badges {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 70px;
+    flex-wrap: wrap;
+    animation: badgesPop 0.8s ease-out 6s both;
+    opacity: 0;
+}
+
+@keyframes badgesPop {
+    0% { opacity: 0; transform: scale(0.8) translateY(50px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.steam-badge {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 22px 40px;
+    border-radius: 50px;
+    font-weight: 800;
+    color: var(--parrot-green);
+    border: 4px solid var(--vibrant-green);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    font-size: 1.2rem;
+    min-width: 180px;
+    backdrop-filter: blur(10px);
+}
+
+.steam-badge:hover {
+    transform: translateY(-20px) scale(1.2);
+    background: linear-gradient(135deg, var(--parrot-green), var(--dark-green));
+    color: var(--white);
+    box-shadow: 0 25px 50px rgba(3, 172, 19, 0.5);
+    border-color: var(--white);
+}
+
+.steam-badge i {
+    margin-right: 12px;
+    font-size: 1.3rem;
+}
+
+.steam-badge::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+    transition: left 0.8s;
+}
+
+.steam-badge:hover::after {
+    left: 100%;
+}
+
+/* ===== PROJECTS SECTION ===== */
+.projects-section {
+    padding: 120px 40px;
+    position: relative;
+    animation: sectionReveal 1s ease-out 6.5s both;
+    opacity: 0;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px);
+    border-radius: 20px;
+    margin: 40px;
+    border: 2px solid rgba(176, 252, 56, 0.2);
+}
+
+@keyframes sectionReveal {
+    to { opacity: 1; }
+}
+
+.section-title {
+    font-size: 3.5rem;
+    color: var(--white);
+    margin-bottom: 60px;
+    text-align: center;
+    position: relative;
+    padding-bottom: 25px;
+    text-shadow: 0 5px 25px rgba(0,0,0,0.4);
+    font-weight: 800;
+}
+
+.section-title::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 6px;
+    background: var(--vibrant-green);
+    border-radius: 3px;
+    animation: lineGrow 1.2s ease-out 7s forwards;
+    box-shadow: 0 0 25px var(--vibrant-green);
+}
+
+@keyframes lineGrow {
+    to { width: 250px; }
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 40px;
+    margin-top: 60px;
+}
+
+.project-card {
+    background: rgba(255, 255, 255, 0.97);
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 3px solid transparent;
+    position: relative;
+    opacity: 0;
+    transform: translateY(60px) scale(0.9);
+    animation: cardLaunch 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    backdrop-filter: blur(10px);
+}
+
+.project-card:nth-child(1) { animation-delay: 7.2s; }
+.project-card:nth-child(2) { animation-delay: 7.4s; }
+.project-card:nth-child(3) { animation-delay: 7.6s; }
+.project-card:nth-child(4) { animation-delay: 7.8s; }
+.project-card:nth-child(5) { animation-delay: 8s; }
+.project-card:nth-child(6) { animation-delay: 8.2s; }
+
+@keyframes cardLaunch {
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.project-card:hover {
+    transform: translateY(-25px) scale(1.08);
+    border-color: var(--vibrant-green);
+    box-shadow: 0 35px 70px rgba(3, 172, 19, 0.5), 
+                0 0 50px rgba(176, 252, 56, 0.4);
+    z-index: 10;
+}
+
+.card-icon {
+    background: linear-gradient(135deg, var(--parrot-green), var(--dark-green));
+    color: var(--white);
+    font-size: 3.5rem;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-content {
+    padding: 35px;
+}
+
+.card-title {
+    font-size: 1.8rem;
+    color: var(--dark-green);
+    margin-bottom: 20px;
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+.card-desc {
+    color: #666;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 30px;
+}
+
+.card-tag {
+    display: inline-block;
+    background: linear-gradient(90deg, var(--vibrant-green), var(--neon-green));
+    color: var(--dark-green);
+    padding: 10px 25px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 800;
+    box-shadow: 0 8px 25px rgba(176, 252, 56, 0.4);
+    letter-spacing: 1px;
+}
+
+/* ===== FOOTER ===== */
+.govt-footer {
+    background: linear-gradient(90deg, rgba(2, 138, 15, 0.95), rgba(3, 172, 19, 0.95));
+    color: var(--white);
+    padding: 70px 40px 40px;
+    text-align: center;
+    margin-top: 120px;
+    position: relative;
+    overflow: hidden;
+    animation: footerRise 1s ease-out 8.5s both;
+    opacity: 0;
+    border-top: 6px solid var(--vibrant-green);
+}
+
+@keyframes footerRise {
+    to { opacity: 1; }
+}
+
+.footer-wave {
+    position: absolute;
+    top: -60px;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z' fill='%23B0FC38'%3E%3C/path%3E%3C/svg%3E");
+    background-size: 1200px 100%;
+    animation: waveMove 30s linear infinite;
+}
+
+@keyframes waveMove {
+    0% { background-position-x: 0; }
+    100% { background-position-x: 2400px; }
+}
+
+.footer-content {
+    position: relative;
+    z-index: 1;
+}
+
+.footer-logo {
+    font-size: 3rem;
+    font-weight: 900;
+    margin-bottom: 30px;
+    color: var(--vibrant-green);
+    text-shadow: 0 0 30px rgba(176, 252, 56, 0.7);
+    letter-spacing: 1px;
+}
+
+.contact-info {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin: 40px 0;
+    flex-wrap: wrap;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 1.2rem;
+    background: rgba(255,255,255,0.1);
+    padding: 15px 25px;
+    border-radius: 50px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(176, 252, 56, 0.3);
+    transition: all 0.4s;
+}
+
+.contact-item:hover {
+    background: rgba(255,255,255,0.2);
+    transform: translateY(-5px);
+    border-color: var(--vibrant-green);
+}
+
+.contact-item i {
+    color: var(--vibrant-green);
+    font-size: 1.5rem;
+}
+
+.social-icons {
+    margin: 50px 0 40px;
+}
+
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%;
+    color: var(--vibrant-green);
+    font-size: 1.8rem;
+    margin: 0 20px;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 3px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.social-icon:hover {
+    background: var(--vibrant-green);
+    color: var(--parrot-green);
+    transform: translateY(-15px) rotate(360deg) scale(1.2);
+    border-color: var(--white);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+}
+
+.copyright {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 2px solid rgba(255,255,255,0.2);
+    line-height: 1.8;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 1200px) {
+    .projects-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+}
+
+@media (max-width: 992px) {
+    .hero-title {
+        font-size: 4rem;
+    }
+    
+    .govt-nav {
+        gap: 20px;
+    }
+    
+    .nav-item {
+        padding: 12px 24px;
+        font-size: 1rem;
+    }
+    
+    .section-title {
+        font-size: 3rem;
+    }
+    
+    .cm-image {
+        width: 180px;
+        height: 180px;
+    }
+    
+    .cm-title {
+        font-size: 1.8rem;
+    }
+    
+    .govt-badge h1 {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .govt-header {
+        flex-direction: column;
+        gap: 30px;
+        padding: 20px;
+    }
+    
+    .govt-nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+    
+    .hero-title {
+        font-size: 3rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.5rem;
+    }
+    
+    .steam-badges {
+        gap: 20px;
+    }
+    
+    .steam-badge {
+        padding: 18px 30px;
+        min-width: 160px;
+        font-size: 1.1rem;
+    }
+    
+    .govt-topbar, .govt-hero, .projects-section {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    
+    .projects-section {
+        margin: 20px;
+    }
+    
+    .govt-badge {
+        padding: 30px 40px;
+    }
+    
+    .loading-container {
+        width: 350px;
+    }
+    
+    .cm-image {
+        width: 160px;
+        height: 160px;
+    }
+    
+    .cm-title {
+        font-size: 1.6rem;
+    }
+    
+    body {
+        background-attachment: scroll;
+    }
+}
+
+@media (max-width: 480px) {
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .section-title {
+        font-size: 2.5rem;
+    }
+    
+    .loading-container {
+        width: 280px;
+    }
+    
+    .contact-info {
+        gap: 20px;
+    }
+    
+    .contact-item {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
+        gap: 10px;
+    }
+    
+    .cm-image {
+        width: 140px;
+        height: 140px;
+    }
+    
+    .cm-title {
+        font-size: 1.4rem;
+    }
+    
+    .cm-subtitle {
+        font-size: 1.1rem;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- Startup Animation with CM Maryam Nawaz Image -->
+<div class="startup-overlay">
+    <div class="cm-section">
+        <div class="cm-image-container">
+            
+                
+        
+        </div>
+        <img src="cm.jpg.png" 
+             alt="CM Maryam Nawaz Sharif"width="300" height="400">
+        <div class="cm-title">Hon. Chief Minister Maryam Nawaz Sharif</div>
+        <div class="cm-subtitle">Visionary Leader of Punjab's Digital Transformation</div>
+        <div class="cm-subtitle">Maryam Nawaz Next-Gen STEAM Initiative</div>
+    </div>
+    
+    <div class="govt-badge">
+        <h1><i class="fas fa-atom"></i> Hi-Tech MCS</h1>
+        <h2>National STEAM Innovation Portal</h2>
+        <div class="loading-container" style="margin-top: 40px;">
+            <div class="loading-bar"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Particle Canvas -->
+<canvas id="particle-canvas"></canvas>
+
+<!-- Top Bar -->
+<div class="govt-topbar">
+    <div class="govt-seal">
+        <div class="seal-icon">
+            <i class="fas fa-star"></i>
+        </div>
+        <span>Official Government STEAM Portal • Ministry of Innovation & Technology</span>
+    </div>
+    <div class="topbar-info">
+        <span><i class="fas fa-phone-volume"></i> Contact Us </span>
+    </div>
+</div>
+
+<!-- Header -->
+<header class="govt-header">
+    <div class="logo-container">
+        <div class="logo-icon">
+            <i class="fas fa-atom fa-3x" style="color: var(--vibrant-green);"></i>
+        </div>
+        <div class="govt-logo">Hi-Tech MCS STEAM Lab</div>
+    </div>
+    
+    <nav class="govt-nav">
+        <a href="deepseek.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+        <a href="about.html" class="nav-item"><i class="fas fa-circle-info"></i> About</a>
+        <a href="lab1.html" class="nav-item"><i class="fas fa-flask"></i> Labs</a>
+        <a href="project1.html" class="nav-item"><i class="fas fa-diagram-project"></i> Projects</a>
+        <a href="contactus.html" class="nav-item"><i class="fas fa-user-shield"></i> Contact us</a>
+    </nav>
+</header>
+
+<!-- Hero Section -->
+<section class="govt-hero">
+    <h1 class="hero-title">STEAM INNOVATION HUB</h1>
+    <p class="hero-subtitle">Pioneering National Development through Advanced Science, Technology & Innovation Systems</p>
+    
+    <div class="steam-badges">
+        <div class="steam-badge"><i class="fas fa-microscope"></i> SCIENCE</div>
+        <div class="steam-badge"><i class="fas fa-laptop-code"></i> TECHNOLOGY</div>
+        <div class="steam-badge"><i class="fas fa-cogs"></i> ENGINEERING</div>
+        <div class="steam-badge"><i class="fas fa-palette"></i> ARTS</div>
+        <div class="steam-badge"><i class="fas fa-calculator"></i> MATHEMATICS</div>
+    </div>
+</section>
+
+<!-- Projects Section -->
+<section class="projects-section">
+    <h2 class="section-title">INNOVATION PROJECTS GALLERY</h2>
+    
+    <div class="projects-grid">
+        <div class="project-card">
+            <div class="card-icon">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Advanced Humanoid Robot</h3>
+                <p class="card-desc">Next-generation AI-driven humanoid with advanced mobility and human interaction capabilities for industrial applications.</p>
+                <span class="card-tag">ADVANCED ROBOTICS</span>
+            </div>
+        </div>
+        
+        <div class="project-card">
+            <div class="card-icon">
+                <i class="fas fa-eye"></i>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">AI Surveillance System</h3>
+                <p class="card-desc">Intelligent security monitoring with facial recognition and anomaly detection for enhanced public safety.</p>
+                <span class="card-tag">AI SECURITY</span>
+            </div>
+        </div>
+        
+        <div class="project-card">
+            <div class="card-icon">
+                <i class="fas fa-home"></i>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Smart City Integration</h3>
+                <p class="card-desc">Comprehensive urban automation system integrating energy, transportation, and public services for sustainable cities.</p>
+                <span class="card-tag">URBAN INNOVATION</span>
+            </div>
+        </div>
+        
+        <div class="project-card">
+            <div class="card-icon">
+                <i class="fas fa-traffic-light"></i>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Intelligent Traffic Control</h3>
+                <p class="card-desc">AI-powered traffic management system with predictive analytics and adaptive signal optimization.</p>
+                <span class="card-tag">SMART TRANSPORT</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="govt-footer">
+    <div class="footer-wave"></div>
+    <div class="footer-content">
+        <div class="footer-logo">
+            <i class="fas fa-atom"></i> Hi-Tech MCS
+        </div>
+        <p style="font-size: 1.4rem; margin-bottom: 25px; font-weight: 300;">National STEAM Innovation Portal</p>
+        <p style="font-size: 1.2rem; margin-bottom: 40px; max-width: 800px; margin-left: auto; margin-right: auto;">
+            Transforming Pakistan's technological landscape through cutting-edge STEAM education and innovation
+        </p>
+        
+        <div class="contact-info">
+            <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <span>innovation@hitechmcs.gov.pk</span>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-phone"></i>
+                <span>+92-51-7654321</span>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>STEAM Innovation HUB, Lahore</span>
+            </div>
+        </div>
+        
+        <div class="social-icons">
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+        </div>
+        
+        <div class="copyright">
+            © 2024 Hi-Tech MCS National STEAM Portal. All Rights Reserved.<br>
+            A Government of Pakistan Initiative | Ministry of Innovation & Technology
+        </div>
+    </div>
+</footer>
+
+<!-- Optimized JavaScript -->
+<script>
+// Optimized Particle Animation
+const canvas = document.getElementById('particle-canvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+// Reduced particle count for better performance
+const particles = [];
+const particleCount = 30; // Further reduced for better performance
+
+class Particle {
+    constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 0.5; // Smaller particles
+        this.speedY = Math.random() * 0.5 + 0.1; // Slower movement
+        this.color = `rgba(${Math.random() * 100 + 155}, ${Math.random() * 255}, ${Math.random() * 100}, 0.4)`; // More transparent
+    }
+    
+    update() {
+        this.y -= this.speedY;
+        if (this.y < 0) {
+            this.y = canvas.height;
+            this.x = Math.random() * canvas.width;
+        }
+    }
+    
+    draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+// Initialize particles
+for (let i = 0; i < particleCount; i++) {
+    particles.push(new Particle());
+}
+
+// Use requestAnimationFrame with time-based updates for consistent performance
+let lastTime = 0;
+const fps = 24; // Further reduced frame rate
+const frameInterval = 1000 / fps;
+
+function animateParticles(currentTime) {
+    if (currentTime - lastTime > frameInterval) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(particle => {
+            particle.update();
+            particle.draw();
+        });
+        lastTime = currentTime;
+    }
+    requestAnimationFrame(animateParticles);
+}
+
+// Handle window resize with debouncing
+let resizeTimeout;
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }, 250);
+});
+
+// Start animations after startup
+setTimeout(() => {
+    requestAnimationFrame(animateParticles);
+    
+    // Remove startup overlay after animation completes
+    const startupOverlay = document.querySelector('.startup-overlay');
+    setTimeout(() => {
+        if (startupOverlay && startupOverlay.parentNode) {
+            startupOverlay.remove();
+        }
+    }, 800);
+}, 4000);
+
+// Optimized hover effects using event delegation
+document.addEventListener('mouseover', function(e) {
+    const card = e.target.closest('.project-card');
+    if (card) {
+        card.style.zIndex = '1000';
+    }
+});
+
+document.addEventListener('mouseout', function(e) {
+    const card = e.target.closest('.project-card');
+    if (card) {
+        card.style.zIndex = '1';
+    }
+});
+
+// Smooth scroll for navigation links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('href');
+        if (targetId === '#' || targetId.startsWith('http')) return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+            e.preventDefault();
+            window.scrollTo({
+                top: targetElement.offsetTop - 100,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// Image preloading for better performance
+window.addEventListener('load', function() {
+    // Preload the CM image
+    const cmImage = new Image();
+    cmImage.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Maryam_Nawaz_Sharif_2022.jpg/800px-Maryam_Nawaz_Sharif_2022.jpg';
+    
+    // Preload background image
+    const bgImage = new Image();
+    bgImage.src = 'https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80';
+});
+
+// Performance optimization: Reduce animations on scroll
+let isScrolling;
+window.addEventListener('scroll', function() {
+    clearTimeout(isScrolling);
+    document.body.classList.add('scrolling');
+    
+    isScrolling = setTimeout(function() {
+        document.body.classList.remove('scrolling');
+    }, 66);
+}, false);
+</script>
+
+</body>
+</html>
